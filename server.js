@@ -21,12 +21,8 @@ app.get('/', (req, res) => {
 
 // external routes
 app.use('/departments', require('./routers/department_router.js'));
-// app.use('/staff', require('./routers/router_staff.js'));
-// app.use('/files', require('./routers/files.js'));
-// app.use('/spms', require('./routers/router_spms.js'));
-// app.use('/logs', require('./routers/router_logs.js'));
-// app.use('/shift', require('./routers/router_shiftwise.js'));
-// app.use('/actions', require('./routers/router_actions.js'));
+app.use('/report', require('./routers/report_category_router.js'));
+
 
 app.listen(port, () => {
   console.log(`http://localhost:${port}`)
