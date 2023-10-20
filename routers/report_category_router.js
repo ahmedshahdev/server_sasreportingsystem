@@ -6,6 +6,6 @@ const {addreportcategory} = require('../controllers/report_category_controller/r
 
 // add new department controller
 router.post('/add', addreportcategory);
-// ! note: here no restrictions is added to avoid duplicate department names
+// ! note: here no restrictions is added to avoid duplicate department report category name
 
 module.exports = router;

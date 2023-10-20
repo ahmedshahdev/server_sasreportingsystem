@@ -21,7 +21,8 @@ app.get('/', (req, res) => {
 
 // external routes
 app.use('/departments', require('./routers/department_router.js'));
-app.use('/report', require('./routers/report_category_router.js'));
+app.use('/reportcategory', require('./routers/report_category_router.js'));
+app.use('/report', require('./routers/report_router.js'));
 
 
 app.listen(port, () => {
