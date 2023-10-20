@@ -6,5 +6,6 @@ const {addreport} = require('../controllers/report_controller/report_con');
 
 // add new report controller
 router.post('/add', addreport);
+// router.post('/fetch', addreport);
 
 module.exports = router;
