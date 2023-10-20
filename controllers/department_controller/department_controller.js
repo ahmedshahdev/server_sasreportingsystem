@@ -1,10 +1,4 @@
+const adddepartment = require("./add_department_con")
 
-
-// add new department controller
-const adddepartment = async (req, res) => {
-
-    res.json("success")
-
-}
 
 module.exports = {adddepartment};
