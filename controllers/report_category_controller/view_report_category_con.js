@@ -21,7 +21,7 @@ const viewreportcategory = async (req, res) => {
             action: 'view',
             ref: 'viewreportcategory',
             alert: 'Error while retrieving report categories',
-            payloaddata: {}
+            payloaddata: []
         });
     }
 }

@@ -2,7 +2,7 @@
 const ReportModel = require('../../models/report_model/report_model');
 
 // add new department controller
-const addreportcategory = async (req, res) => {
+const addreport = async (req, res) => {
     try {
         const { reportname, report_category } = req.body; // Assuming the department name is sent in the request body
 
@@ -11,7 +11,7 @@ const addreportcategory = async (req, res) => {
             return res.status(400).json({
                 status: 'failed',
                 action: 'create',
-                ref: 'addreportcategory',
+                ref: 'add report',
                 alert: 'Report Name is required',
                 payloaddata: {}
             });
@@ -57,4 +57,4 @@ const addreportcategory = async (req, res) => {
 
 }
 
-module.exports = addreportcategory;
+module.exports = addreport;
