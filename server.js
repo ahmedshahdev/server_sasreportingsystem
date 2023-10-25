@@ -12,7 +12,7 @@ const port = 5000;
 
 // allow json body
 app.use(cors());
-app.use(express.json({limit:'10mb'}))
+app.use(express.json({limit:'10mb'}));
 
 // routes
 app.get('/', (req, res) => {
@@ -23,7 +23,7 @@ app.get('/', (req, res) => {
 app.use('/departments', require('./routers/department_router.js'));
 app.use('/reportcategory', require('./routers/report_category_router.js'));
 app.use('/report', require('./routers/report_router.js'));
-
+app.use('/reporttemplate', require('./routers/report_template_router.js'));
 
 app.listen(port, () => {
   console.log(`http://localhost:${port}`)
