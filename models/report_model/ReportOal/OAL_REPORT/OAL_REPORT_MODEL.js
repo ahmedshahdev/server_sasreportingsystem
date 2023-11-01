@@ -17,19 +17,21 @@ const _Schema = new Schema({
         required: false
     },
     STD: {
-        type: String,
-        required: false
+        type: Date,
+        required: false,
+        default: new Date().toISOString().split('T')[0]
     },
     ATD: {
-        type: String,
-        required: false
+        type: Date,
+        required: false,
+        default: new Date().toISOString().split('T')[0]
     },
     TOB_ADULT: {
-        type: String,
+        type: Number,
         required: false
     },
     TOB_INF: {
-        type: String,
+        type: Number,
         required: false
     },
     REPORT_TEMPLATE: {
@@ -40,7 +42,7 @@ const _Schema = new Schema({
     DATE: {
         type: Date, // Date field for the creation date
         required: false, // You can change this to false if it's optional
-        default: Date.now // Set a default value to the current date/time
+        default: new Date().toISOString().split('T')[0]
     },
     TIME: {
         type: String, // String field for the creation time (you can use a different data type if needed)
@@ -50,7 +52,7 @@ const _Schema = new Schema({
     ADDED_DATE: {
         type: Date, // Date field for the creation date
         required: false, // You can change this to false if it's optional
-        default: Date.now // Set a default value to the current date/time
+        default: new Date().toISOString().split('T')[0]
     },
     ADDED_TIME: {
         type: String, // String field for the creation time (you can use a different data type if needed)

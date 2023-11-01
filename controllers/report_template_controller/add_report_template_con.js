@@ -4,7 +4,7 @@ const ReportTemplateModel = require('../../models/report_model/report_template_m
 // add new department controller
 const addreporttemplate = async (req, res) => {
     try {
-        const { REPORT_ID, SHIFT, DATE, SHIFT_MANAGER, TIME, ADDED_DATE, ADDED_TIME } = req.body;
+        const { REPORT_ID, SHIFT, DATE, SHIFT_MANAGER } = req.body;
 
         // validation 
         if (!REPORT_ID) {
@@ -43,7 +43,7 @@ const addreporttemplate = async (req, res) => {
             REPORT_ID,
             DATE,
             SHIFT
-        });
+        }).populate('REPORT_ID');
 
         if (existingReport) {
             // If a matching report exists, return it to the client
@@ -57,11 +57,12 @@ const addreporttemplate = async (req, res) => {
             });
         }
 
-        const newReportTemplate = new ReportTemplateModel({
+        const newReportTemplate = await  ReportTemplateModel({
             REPORT_ID,
             SHIFT,
             SHIFT_MANAGER,
-        });
+            DATE
+        }).populate("REPORT_ID");
 
         const savedReportTemplate = await newReportTemplate.save();
 
