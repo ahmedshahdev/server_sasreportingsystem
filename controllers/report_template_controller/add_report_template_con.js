@@ -27,15 +27,15 @@ const addreporttemplate = async (req, res) => {
             });
         }
 
-        if (!SHIFT_MANAGER) {
-            return res.status(400).json({
-                status: 'failed',
-                action: 'create',
-                ref: 'addreporttemplate',
-                alert: 'SHIFT_MANAGER is required',
-                payloaddata: {}
-            });
-        }
+        // if (!SHIFT_MANAGER) {
+        //     return res.status(400).json({
+        //         status: 'failed',
+        //         action: 'create',
+        //         ref: 'addreporttemplate',
+        //         alert: 'SHIFT_MANAGER is required',
+        //         payloaddata: {}
+        //     });
+        // }
 
 
         // Check if a report with the same REPORT_ID, DATE, and SHIFT exists

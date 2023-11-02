@@ -8,7 +8,7 @@ const path = require('path');
 dbconnect();
 
 const app = express();
-const port = 5000;
+const port = 4000;
 
 // allow json body
 app.use(cors());
@@ -24,6 +24,7 @@ app.use('/departments', require('./routers/department_router.js'));
 app.use('/reportcategory', require('./routers/report_category_router.js'));
 app.use('/report', require('./routers/report_router.js'));
 app.use('/reporttemplate', require('./routers/report_template_router.js'));
+app.use('/users', require('./routers/user_router.js'));
 
 app.listen(port, () => {
   console.log(`http://localhost:${port}`)

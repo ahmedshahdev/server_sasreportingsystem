@@ -4,30 +4,31 @@ const {
 } = mongoose;
 
 const _Schema = new Schema({
-    REPORT_ID: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: false,
-        ref: 'report'
-    },
-    SHIFT: { 
-        type: String,
-        required: false
-    },
-    SHIFT_MANAGER: {
+    UNDER_SHIFT: {
         type: mongoose.Schema.Types.ObjectId,
         required: false,
         ref: 'USERS',
         default: null
     },
-    DATE: {
-        type: Date, // Date field for the creation date
-        required: false, // You can change this to false if it's optional
-        default: new Date().toISOString().split('T')[0]
+    STAFF_ID: {
+        type: String,
+        required: false
     },
-    TIME: {
-        type: String, // String field for the creation time (you can use a different data type if needed)
-        required: false, // You can change this to false if it's optional
-        default: new Date().toLocaleTimeString() // Set a default value to the current time
+    NAME: { // Either Morning or Night letter we will decide
+        type: String,
+        required: false
+    },
+    DESIGNATION: {
+        type: String,
+        required: false
+    },
+    SUB_DESIGNATION: {
+        type: String,
+        required: false
+    },
+    COPERATE_DESIGNATION: {
+        type: String,
+        required: false
     },
     ADDED_DATE: {
         type: Date, // Date field for the creation date
@@ -41,6 +42,6 @@ const _Schema = new Schema({
     },
 });
 
-const report_template = mongoose.model('REPORT_TEMPLATE', _Schema);
+const report_template = mongoose.model('USERS', _Schema);
 // report_template.createIndexes();
 module.exports = report_template;
