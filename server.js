@@ -18,7 +18,7 @@ app.use(express.json({
 
 // routes
 app.get('/', (req, res) => {
-  res.send('Server is listening!')
+  res.send('Server is listening at http://localhost:' + port)
 })
 
 // external routes
@@ -29,5 +29,5 @@ app.use('/reporttemplate', require('./routers/report_template_router.js'));
 app.use('/users', require('./routers/user_router.js'));
 
 app.listen(port, () => {
-  console.log(`http://localhost:${port}`)
+  console.log(`Server is listening at http://localhost:${port}`)
 })
