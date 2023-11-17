@@ -4,10 +4,6 @@ const {
 } = mongoose;
 
 const _Schema = new Schema({
-    SL_NO: {
-        type: String,
-        required: false
-    },
     FLT_NO: {
         type: String,
         required: false
