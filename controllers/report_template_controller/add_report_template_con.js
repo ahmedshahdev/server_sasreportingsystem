@@ -43,7 +43,7 @@ const addreporttemplate = async (req, res) => {
             REPORT_ID,
             DATE,
             SHIFT
-        }).populate('REPORT_ID');
+        }).populate('REPORT_ID').populate("SHIFT_MANAGER");
 
         if (existingReport) {
             // If a matching report exists, return it to the client
@@ -62,7 +62,7 @@ const addreporttemplate = async (req, res) => {
             SHIFT,
             SHIFT_MANAGER,
             DATE
-        }).populate("REPORT_ID");
+        }).populate("REPORT_ID")
 
         const savedReportTemplate = await newReportTemplate.save();
 
