@@ -39,6 +39,7 @@ const controller = async (req, res) => {
         const newReport = new OAL_REPORT_MODEL({
             REPORT_TEMPLATE,
             NAME:'',
+            AIRLINE: '',
             DEP_ARRV_FLIGHT:'',
             SECTOR:'',
             NATIONALITY:'',
