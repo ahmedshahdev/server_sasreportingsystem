@@ -28,6 +28,7 @@ app.use('/report', require('./routers/report_router.js'));
 app.use('/reporttemplate', require('./routers/report_template_router.js'));
 app.use('/users', require('./routers/user_router.js'));
 app.use('/report/oalreport', require('./routers/oal_report_router.js'));
+app.use('/report/oalinadpreport', require('./routers/oal_inadp_report_router.js'));
 
 app.listen(port, () => {
   console.log(`Server is listening at http://localhost:${port}`)

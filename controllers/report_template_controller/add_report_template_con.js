@@ -61,7 +61,8 @@ const addreporttemplate = async (req, res) => {
             REPORT_ID,
             SHIFT,
             SHIFT_MANAGER,
-            DATE
+            DATE,
+            COMMENTS: [] // initialize with empty comments 
         }).populate("REPORT_ID")
 
         const savedReportTemplate = await newReportTemplate.save();

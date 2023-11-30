@@ -4,25 +4,42 @@ const {
 } = mongoose;
 
 const _Schema = new Schema({
-    REPORT_ID: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: false,
-        ref: 'report'
-    },
-    SHIFT: { 
+    NAME: {
         type: String,
         required: false
     },
-    SHIFT_MANAGER: {
+    AIRLINE: {
+        type: String,
+        required: false,
+    },
+    DEP_ARRV_FLIGHT: {
+        type: String,
+        required: false
+    },
+    SECTOR: {
+        type: String,
+        required: false
+    },
+    NATIONALITY: {
+        type: String,
+        required: false
+    },
+    PNR: {
+        type: String,
+        required: false
+    },
+    REMARKS: {
+        type: String,
+        required: false
+    },
+    ACTION: {
+        type: String,
+        required: false
+    },
+    REPORT_TEMPLATE: {
         type: mongoose.Schema.Types.ObjectId,
         required: false,
-        ref: 'USERS',
-        default: null
-    },
-    COMMENTS: {
-        type: Schema.Types.Mixed,
-        required: false,
-        default: []
+        ref: 'REPORT_TEMPLATE'
     },
     DATE: {
         type: Date, // Date field for the creation date
@@ -37,16 +54,15 @@ const _Schema = new Schema({
     ADDED_DATE: {
         type: Date, // Date field for the creation date
         required: false, // You can change this to false if it's optional
-        default: new Date().toISOString().split('T')[0] // Set a default value to the current date/time
+        default: new Date().toISOString().split('T')[0]
     },
     ADDED_TIME: {
         type: String, // String field for the creation time (you can use a different data type if needed)
         required: false, // You can change this to false if it's optional
         default: new Date().toLocaleTimeString() // Set a default value to the current time
     },
-
 });
 
-const report_template = mongoose.model('REPORT_TEMPLATE', _Schema);
-// report_template.createIndexes();
-module.exports = report_template;
+const MODEL = mongoose.model('OAL_REPORT_INAD_PASSENGER', _Schema);
+// MODEL.createIndexes();
+module.exports = MODEL;
