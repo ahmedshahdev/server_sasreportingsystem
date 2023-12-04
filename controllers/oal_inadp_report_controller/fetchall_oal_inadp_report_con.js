@@ -20,7 +20,8 @@ const controller = async (req, res) => {
 
         // Check if there are existing reports with the same REPORT_TEMPLATE
         const existingReports = await OAL_REPORT_MODEL.find({
-            REPORT_TEMPLATE
+            REPORT_TEMPLATE, 
+            STATUS: { $ne: 'CLEAR' }
         });
 
         if (existingReports.length > 0) {
@@ -38,6 +39,7 @@ const controller = async (req, res) => {
         // Create a new report instance with REPORT_TEMPLATE and other fields
         const newReport = new OAL_REPORT_MODEL({
             REPORT_TEMPLATE,
+            STATUS: 'INITIAL',
             NAME:'',
             AIRLINE: '',
             DEP_ARRV_FLIGHT:'',

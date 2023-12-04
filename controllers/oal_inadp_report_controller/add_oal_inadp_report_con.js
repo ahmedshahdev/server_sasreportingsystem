@@ -18,6 +18,7 @@ const controller = async (req, res) => {
         // Create a new report instance
         const newReport = new OAL_REPORT_MODEL({
             REPORT_TEMPLATE,
+            STATUS: 'INITIAL',
             NAME:'',
             AIRLINE: '',
             DEP_ARRV_FLIGHT:'',

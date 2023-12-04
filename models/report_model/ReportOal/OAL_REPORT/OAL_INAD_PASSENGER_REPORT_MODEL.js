@@ -4,6 +4,11 @@ const {
 } = mongoose;
 
 const _Schema = new Schema({
+    STATUS: {
+        type: String,
+        required: false,
+        default: "INITIAL"
+    },
     NAME: {
         type: String,
         required: false
