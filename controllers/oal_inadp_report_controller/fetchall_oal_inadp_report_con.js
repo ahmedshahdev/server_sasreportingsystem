@@ -20,9 +20,17 @@ const controller = async (req, res) => {
 
         // Check if there are existing reports with the same REPORT_TEMPLATE
         const existingReports = await OAL_REPORT_MODEL.find({
-            REPORT_TEMPLATE, 
-            STATUS: { $ne: 'CLEAR' }
-        });
+            REPORT_TEMPLATE,
+            STATUS: {
+                $ne: 'CLEAR'
+            }
+        }).populate({
+            path: 'REPORT_TEMPLATE',
+            populate: {
+                path: 'SHIFT_MANAGER', // Replace 'yourNestedReference' with the actual field name
+                // You can continue nesting as needed
+            }
+        })
 
         if (existingReports.length > 0) {
             // If matching reports exist, return them to the client
@@ -40,18 +48,33 @@ const controller = async (req, res) => {
         const newReport = new OAL_REPORT_MODEL({
             REPORT_TEMPLATE,
             STATUS: 'INITIAL',
-            NAME:'',
+            NAME: '',
             AIRLINE: '',
-            DEP_ARRV_FLIGHT:'',
-            SECTOR:'',
-            NATIONALITY:'',
-            PNR:'',
-            REMARKS:'',
+            DEP_ARRV_FLIGHT: '',
+            SECTOR: '',
+            NATIONALITY: '',
+            PNR: '',
+            REMARKS: '',
             ...otherFields
         });
 
         // Save the new report to the database
         const savedReport = await newReport.save();
+
+        // Now, use a separate query to populate the nested references
+        const populatedReport = await OAL_REPORT_MODEL
+            .findById(savedReport._id)
+            .populate({
+                path: 'REPORT_TEMPLATE',
+                populate: {
+                    path: 'SHIFT_MANAGER', // Replace 'SHIFT_MANAGER' with the actual field name
+                    // You can continue nesting as needed
+                }
+            })
+            .exec();
+
+        // console.log(populatedReport);
+
 
         res.status(201).json({
             status: 'success',
@@ -59,7 +82,7 @@ const controller = async (req, res) => {
             ref: 'fetchall oal report',
             alert: 'New OAL Report added successfully',
             availability: 'new-created',
-            payloaddata: [savedReport]
+            payloaddata: [populatedReport]
         });
     } catch (error) {
         console.error('Error adding report:', error);
