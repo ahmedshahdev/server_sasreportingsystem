@@ -1,56 +1,100 @@
 const OAL_REPORT_MODEL = require('../../models/report_model/ReportOal/OAL_REPORT/OAL_INAD_PASSENGER_REPORT_MODEL');
 
-const updateOALReport = async (req, res) => {
+const transferOALReport = async (req, res) => {
     try {
-        const { reportId, key, value } = req.body;
+        const {
+            newreporttemplate
+        } = req.body;
 
         // Validation
-        if (!reportId || !key || value === undefined) {
+        if (!newreporttemplate) {
             return res.status(400).json({
                 status: 'failed',
                 action: 'update',
                 ref: 'updateoal inap report',
-                alert: 'reportId, key, and value are required',
+                alert: ' newreporttemplate are required',
                 payloaddata: {}
             });
         }
 
-        // Check if an OAL report with the given _id exists
-        const existingOALReport = await OAL_REPORT_MODEL.findOne({ _id: reportId });
+        // Find all OAL reports with STATUS not equal to 'clear'
+        const existingOALReports = await OAL_REPORT_MODEL.find({
+            STATUS: {
+                $ne: 'clear'
+            },
+            REPORT_TEMPLATE: {
+                $ne: newreporttemplate
+            }
+        }).populate({
+            path: 'INITIAL_REPORT_TEMPLATE',
+            populate: {
+                path: 'SHIFT_MANAGER', // Replace 'yourNestedReference' with the actual field name
+                // You can continue nesting as needed
+            }
+        })
 
-        if (!existingOALReport) {
+        // Check if there are any reports to update
+        if (!existingOALReports || existingOALReports.length === 0) {
             return res.status(404).json({
                 status: 'failed',
                 action: 'update',
-                ref: 'updateoalreport',
-                alert: 'OAL inadp Report not found',
+                ref: 'transferoalreport',
+                alert: 'No pending oal inad report available to transfer',
                 payloaddata: {}
             });
         }
 
-        // Update the OAL report directly
-        existingOALReport[key] = value;
+        // console.log(existingOALReports)
+        // res.json(existingOALReports)
+        // res.end();
+        // return false;
 
-        // Save the updated OAL report
-        const updatedOALReport = await existingOALReport.save();
+        // Update each OAL report with the new report template
+        for (const existingOALReport of existingOALReports) {
+            console.log(existingOALReport)
+            console.log("----- ------ ----- ----- ----- -----")
+            // existingOALReport.INITIAL_REPORT_TEMPLATE = existingOALReport.REPORT_TEMPLATE;
+            existingOALReport.REPORT_TEMPLATE = newreporttemplate;
+            // Save each updated OAL report
+            await existingOALReport.save();
+        }
+
+        // Now, use a separate query to populate the nested references
+        // const populatedOALReports = await OAL_REPORT_MODEL.find({
+        //     _id: {
+        //         $in: existingOALReports.map(report => report._id)
+        //     },
+        //     STATUS: {
+        //         $ne: 'clear'
+        //     },
+        //     REPORT_TEMPLATE: {
+        //         $ne: newreporttemplate
+        //     }
+        // }).populate({
+        //     path: 'INITIAL_REPORT_TEMPLATE',
+        //     populate: {
+        //         path: 'SHIFT_MANAGER', // Replace 'SHIFT_MANAGER' with the actual field name
+        //         // You can continue nesting as needed
+        //     }
+        // });
 
         res.status(200).json({
             status: 'success',
             action: 'update',
-            ref: 'updateoalreport',
+            ref: 'transferoalreport',
             alert: 'OAL inadp Report updated successfully',
-            payloaddata: updatedOALReport
+            payloaddata: existingOALReports
         });
     } catch (error) {
         console.error('Error updating OAL  inadp report:', error);
         res.status(500).json({
             status: 'failed',
             action: 'update',
-            ref: 'updateoalreport',
+            ref: 'transferoalreport',
             alert: 'Error while updating the OAL inad Report',
             payloaddata: {}
         });
     }
 };
 
-module.exports = updateOALReport;
+module.exports = transferOALReport;

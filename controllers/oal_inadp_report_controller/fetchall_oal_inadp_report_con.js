@@ -25,7 +25,7 @@ const controller = async (req, res) => {
                 $ne: 'CLEAR'
             }
         }).populate({
-            path: 'REPORT_TEMPLATE',
+            path: 'INITIAL_REPORT_TEMPLATE',
             populate: {
                 path: 'SHIFT_MANAGER', // Replace 'yourNestedReference' with the actual field name
                 // You can continue nesting as needed
@@ -33,6 +33,7 @@ const controller = async (req, res) => {
         })
 
         if (existingReports.length > 0) {
+            console.log(existingReports)
             // If matching reports exist, return them to the client
             return res.status(200).json({
                 status: 'success',
@@ -42,11 +43,13 @@ const controller = async (req, res) => {
                 availability: 'already-created',
                 payloaddata: existingReports
             });
+            res.end()
         }
 
         // Create a new report instance with REPORT_TEMPLATE and other fields
         const newReport = new OAL_REPORT_MODEL({
             REPORT_TEMPLATE,
+            INITIAL_REPORT_TEMPLATE:  REPORT_TEMPLATE,
             STATUS: 'INITIAL',
             NAME: '',
             AIRLINE: '',
@@ -65,13 +68,13 @@ const controller = async (req, res) => {
         const populatedReport = await OAL_REPORT_MODEL
             .findById(savedReport._id)
             .populate({
-                path: 'REPORT_TEMPLATE',
+                path: 'INITIAL_REPORT_TEMPLATE',
                 populate: {
                     path: 'SHIFT_MANAGER', // Replace 'SHIFT_MANAGER' with the actual field name
                     // You can continue nesting as needed
                 }
             })
-            .exec();
+            
 
         // console.log(populatedReport);
 

@@ -46,6 +46,11 @@ const _Schema = new Schema({
         required: false,
         ref: 'REPORT_TEMPLATE'
     },
+    INITIAL_REPORT_TEMPLATE: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: false,
+        ref: 'REPORT_TEMPLATE'
+    },
     DATE: {
         type: Date, // Date field for the creation date
         required: false, // You can change this to false if it's optional

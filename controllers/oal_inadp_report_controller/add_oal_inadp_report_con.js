@@ -18,6 +18,7 @@ const controller = async (req, res) => {
         // Create a new report instance
         const newReport = new OAL_REPORT_MODEL({
             REPORT_TEMPLATE,
+            INITIAL_REPORT_TEMPLATE: REPORT_TEMPLATE,
             STATUS: 'INITIAL',
             NAME:'',
             AIRLINE: '',
@@ -33,7 +34,13 @@ const controller = async (req, res) => {
         const savedReport = await newReport.save();
 
         // Populate the REPORT_TEMPLATE field with the actual data from the referenced model
-        await savedReport.populate('REPORT_TEMPLATE')
+        await savedReport.populate({
+            path: 'INITIAL_REPORT_TEMPLATE',
+            populate: {
+                path: 'SHIFT_MANAGER', // Replace 'yourNestedReference' with the actual field name
+                // You can continue nesting as needed
+            }
+        })
 
         res.status(201).json({
             status: 'success',
