@@ -8,7 +8,7 @@ const path = require('path');
 dbconnect();
 
 const app = express();
-const port = 5000;
+const port = 4000;
 
 // allow json body
 app.use(cors());

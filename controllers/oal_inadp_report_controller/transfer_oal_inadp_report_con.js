@@ -51,8 +51,6 @@ const transferOALReport = async (req, res) => {
 
         // Update each OAL report with the new report template
         for (const existingOALReport of existingOALReports) {
-            console.log(existingOALReport)
-            console.log("----- ------ ----- ----- ----- -----")
             // existingOALReport.INITIAL_REPORT_TEMPLATE = existingOALReport.REPORT_TEMPLATE;
             existingOALReport.REPORT_TEMPLATE = newreporttemplate;
             // Save each updated OAL report
